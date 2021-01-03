@@ -1,8 +1,8 @@
 # PSYahooFinance
 
-Retrieves Stock Market quotes from Yahoo Finance API. 
+Retrieves OHLC (Open, High, Low, Close) Stock Market quotes from Yahoo Finance API. 
 
-Compatible with Windows PowerShell 5.1 and PowerShell 7.
+Compatible with `Windows PowerShell 5.1` and `PowerShell 7`.
 
 ## Install
 
