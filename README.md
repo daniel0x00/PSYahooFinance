@@ -1,6 +1,6 @@
 # PSYahooFinance
 
-Retrieves OHLC (Open, High, Low, Close) Stock Market quotes from Yahoo Finance API. 
+Retrieves OHLC (Open, High, Low, Close) Stock Market quotes from Yahoo Finance API, **live data** and **historical data**. 
 
 Compatible with `Windows PowerShell 5.1` and `PowerShell 7`.
 
@@ -90,4 +90,22 @@ low       : 117.56
 close     : 118.09
 volume    : 1850952
 ```
+
+### Live data, Apple stock, 1m candles.
+```powershell
+PS C:\> Get-YFStockQuote -Symbol AAPL -Interval 1m -Range 1d | ft
+```
+```console
+timestamp symbol interval   open   high    low  close  volume
+ --------- ------ --------   ----   ----    ---  -----  ------
+1609770600 AAPL   1m       133.37 133.61 132.95 133.15 4263981
+1609770660 AAPL   1m       133.13 133.45 133.08 133.34  534461
+1609770720 AAPL   1m       133.35 133.36 132.99 133.11  526067
+1609770780 AAPL   1m       133.11 133.15 132.71 132.75  555639
+1609770840 AAPL   1m       132.73 132.83 132.39 132.81  744817
+1609770900 AAPL   1m            0      0      0      0       0
+1609770917 AAPL   1m       132.75 132.75 132.75 132.75       0
+```
+
+Note that the last 2 objects. `1609770900` represents the current minute value when the candle is closed -which hasn't happened yet, thereby `0` values-, whereas the `1609770917` value is the current timestamp, meaning 'non-closed candle' (temporal results).
         
