@@ -59,9 +59,9 @@ function Get-YFStockQuote {
         [Parameter(Mandatory=$false, ValueFromPipeline=$false, ParameterSetName='ByDate')]
         [int] $FromDate=([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays(-30).ToLocalTime()).TotalSeconds),
 
-        # Till how far back it goes, by date. Default is -1d:
+        # Till how far back it goes, by date. Default is current day:
         [Parameter(Mandatory=$false, ValueFromPipeline=$false, ParameterSetName='ByDate')]
-        [int] $ToDate=([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays(-1).ToLocalTime()).TotalSeconds),
+        [int] $ToDate=([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays(0).ToLocalTime()).TotalSeconds),
 
         # Switch to skip candle size output.
         # By default is $false, thereby will be shown. 
@@ -79,7 +79,7 @@ function Get-YFStockQuote {
         "ByDate" { 
             # Received relative days:
             if ($FromDate -lt 0) { $FromDate = ([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays($FromDate).ToLocalTime()).TotalSeconds) }
-            if ($ToDate -lt 0) { $ToDate = ([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays($ToDate).ToLocalTime()).TotalSeconds) }
+            if ($ToDate -le 0) { $ToDate = ([int](New-TimeSpan -Start (Get-Date '01/01/1970') -End (Get-Date).AddDays($ToDate).ToLocalTime()).TotalSeconds) }
 
             $Url = [string]::concat($UrlBase, ("{0}?region=US&lang=en-US&includePrePost=false&interval={1}&period1={2}&period2={3}&corsDomain=finance.yahoo.com&.tsrc=finance" -f $Symbol,$Interval,$FromDate,$ToDate) )
         }
